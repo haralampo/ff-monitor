@@ -8,10 +8,10 @@ import type { AttendanceStatus, Employee } from './types'
 function EmployeeCard({ employee }: { employee: Employee }) {
   return (
     <div className={`employee-card ${employee.status.toLowerCase()}`}>
-      <h3>{employee.name}</h3>
+      <h3 className='employee-name'>{employee.name}</h3>
       <div>
-        <p>{employee.status}</p>
-        <p>
+        <p className="status-label">{employee.status}</p>
+        <p className="punch-time">
           {new Date(employee.lastPunch).toLocaleTimeString([], { 
             hour: '2-digit', 
             minute: '2-digit' 

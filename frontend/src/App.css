@@ -23,7 +23,7 @@ body {
 .depts-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); 
-  gap: 20px;
+  gap: 5px;
   padding: 20px;
   width: 100%;
   align-items: start;
@@ -33,23 +33,31 @@ body {
 
 .dept-section {
   border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
+  border-radius: 4px;
+  padding: 10px;
   background-color: #f9f9f9;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 150px;
   color: #213547;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+.dept-section h2 {
+  font-weight: 400;
+  font-size: 20px;
+  letter-spacing: 3px;
+}
+
 .employee-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   border: 1px solid #8c8c8c;
-  border-radius: 8px;
-  padding: 15px;
-  margin: 5px;
+  border-radius: 4px;
+  padding: 0px 10px 0px 10px;
+  margin: 2px 0px 2px 0px;
   background-color: #f9f9f9;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
   display: flex;
@@ -57,16 +65,54 @@ body {
   justify-content: space-between;
   color: #213547;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  max-height: 60px;
+}
+
+.employee-name {
+  font-weight: 500;
+  color: #000000;
+  display: block;
+  align-content: center;
+  margin: 0px;
+}
+
+.employee-card > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0px;
+  padding: 2px 0px 2px 0px;
+}
+
+.status-label {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #686868;
+  line-height: 1;
+  margin: 0;
+}
+
+.punch-time {
+  font-weight: 600;
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: #000000;
+  line-height: 1;
+  margin: 0;
 }
 
 .employee-card.in { 
-  background-color: rgb(202, 255, 207); 
+  background-color: rgba(202, 255, 207, 0.4); 
+  border-left: 5px solid rgba(18, 132, 29, 0.755);
 }
 
 .employee-card.out { 
-  background-color: rgb(255, 202, 203); 
+  background-color: rgb(255, 202, 203, 0.4); 
+  border-left: 5px solid rgb(198, 45, 47);
 }
 
 .employee-card.break { 
-  background-color: rgb(212, 213, 255); 
+  background-color: rgb(212, 213, 255, 0.4); 
+  border-left: 5px solid rgb(44, 46, 161);
 }
