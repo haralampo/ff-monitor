@@ -1,7 +1,10 @@
+// React hooks:
+// useState → stores component state
+// useEffect → runs side effects (ex. fetching data)
+// useMemo → caches expensive computations
 import { useEffect, useState, useMemo } from 'react'
 import './App.css'
-
-import type { AttendanceStatus, Employee } from './types'
+import type {Employee } from './types'
 
 // Child component
 // Represents UI of Employee Card
@@ -26,11 +29,16 @@ function EmployeeCard({ employee }: { employee: Employee }) {
 =====================
  App Component (Parent)
 =====================
-This holds main application state.
+Holds main application state.
 */
 function App() {
+
+  // employees = current value
+  // setEmployees = function to update value
   const [employees, setEmployees] = useState<Employee[]>([]);
 
+  // useEffect runs AFTER component renders
+  // [] dependency array = run this only once (on mount)
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
@@ -42,33 +50,39 @@ function App() {
         console.error("Failed to load employees from server:", error);
       }
     };
-
+    
     fetchEmployees();
 
+    // setInterval() starts repeating timer
     const intervalId = setInterval(() => {
       fetchEmployees();
-    }, 5000);
+    }, 3000);
 
+    // Clean up
     return () => {
       clearInterval(intervalId);
     }
   }, []);
 
   // useMemo caches computed value
+  // so grouping isn't recomputed on every render.
+  // Recomputes only when employees changes
   const groupedEmployees = useMemo(() => {
+    // reduce transforms array -> object
     return employees.reduce((acc, employee) => {
       if (!Object.hasOwn(acc, employee.dept)) {
         acc[employee.dept] = [];
       }
       acc[employee.dept].push(employee);
-      // Your grouping logic here...
       return acc;
-    }, {} as Record<string, Employee[]>);
+    }, {} as Record<string, Employee[]>); // key = string (dept), value = array of Employee
   }, [employees]);
 
   return (
     <div className='app-container'>
       <div className='depts-container'>
+        {/* .entries() converts object to array of [key, value] items */}
+        {/* .map() iterates through array */}
         {Object.entries(groupedEmployees).map(([deptName, deptEmployees]) => (
           <div key={deptName} className="dept-section">
             <h2>{deptName}</h2>

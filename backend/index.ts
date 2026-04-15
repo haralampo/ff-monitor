@@ -16,7 +16,7 @@ setInterval(() => {
   employees[randomIdx].lastPunch = new Date().toISOString();
   
   console.log(`Update: ${employees[randomIdx].name} -> ${employees[randomIdx].status}`);
-}, 10000);
+}, 3000);
 
 app.get('/api/attendance', (req: Request, res: Response) => {
   res.json(employees);
