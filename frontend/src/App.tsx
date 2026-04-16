@@ -6,19 +6,43 @@ import { useEffect, useState, useMemo } from 'react'
 import './App.css'
 import type {Employee } from './types'
 
+function formatTime(ms: number) {
+  const totalSeconds = Math.floor(ms / 1000);
+
+  const h = Math.floor(totalSeconds / 3600);
+  const m = Math.floor((totalSeconds % 3600) / 60);
+  const s = Math.floor(totalSeconds % 60);
+
+  const hours = h > 0 ? `${h}:` : ""; // Only show hours if they exist
+  const minutes = m.toString().padStart(2, "0");
+  const seconds = s.toString().padStart(2, "0");
+
+  return `${hours}${minutes}:${seconds}`;
+}
+
 // Child component
 // Represents UI of Employee Card
-function EmployeeCard({ employee }: { employee: Employee }) {
+function EmployeeCard({ employee } : { employee: Employee }) {
+  const [currentTime, setCurrentTime] = useState(new Date());
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const punchTimestamp = useMemo(() => {
+    return new Date(employee.lastPunch).getTime();
+  }, [employee.lastPunch]);
+
   return (
     <div className={`employee-card ${employee.status.toLowerCase()}`}>
       <h3 className='employee-name'>{employee.name}</h3>
       <div>
         <p className="status-label">{employee.status}</p>
         <p className="punch-time">
-          {new Date(employee.lastPunch).toLocaleTimeString([], { 
-            hour: '2-digit', 
-            minute: '2-digit' 
-          })}
+          {formatTime(currentTime.getTime() - punchTimestamp)}
         </p>
       </div>
     </div>
@@ -56,7 +80,7 @@ function App() {
     // setInterval() starts repeating timer
     const intervalId = setInterval(() => {
       fetchEmployees();
-    }, 3000);
+    }, 5000);
 
     // Clean up
     return () => {
@@ -65,8 +89,7 @@ function App() {
   }, []);
 
   // useMemo caches computed value
-  // so grouping isn't recomputed on every render.
-  // Recomputes only when employees changes
+  // so grouping isn't recomputed on every render
   const groupedEmployees = useMemo(() => {
     // reduce transforms array -> object
     return employees.reduce((acc, employee) => {

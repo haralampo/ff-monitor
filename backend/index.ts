@@ -4,9 +4,11 @@ import cors from 'cors';
 import { employees } from './data.js';
 import { AttendanceStatus } from './types.js';
 
+// Create server and allow cross origin requests
 const app = express();
 app.use(cors());
 
+// Runs every 3 secs
 setInterval(() => {
   const randomIdx = Math.floor(Math.random() * employees.length);
   const statuses: AttendanceStatus[] = ["IN", "OUT", "BREAK"];
@@ -16,8 +18,9 @@ setInterval(() => {
   employees[randomIdx].lastPunch = new Date().toISOString();
   
   console.log(`Update: ${employees[randomIdx].name} -> ${employees[randomIdx].status}`);
-}, 3000);
+}, 5000);
 
+// How to respond when someone sends a GET to this URL
 app.get('/api/attendance', (req: Request, res: Response) => {
   res.json(employees);
 });

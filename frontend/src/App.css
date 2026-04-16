@@ -94,6 +94,7 @@ body {
 }
 
 .punch-time {
+  font-variant-numeric: tabular-nums;
   font-weight: 600;
   font-size: 20px;
   letter-spacing: 1px;
@@ -103,16 +104,16 @@ body {
 }
 
 .employee-card.in { 
-  background-color: rgba(202, 255, 207, 0.4); 
-  border-left: 5px solid rgba(18, 132, 29, 0.755);
+  background-color: rgb(245, 255, 245); 
+  border-left: 7px solid rgba(18, 132, 29, 0.755);
 }
 
 .employee-card.out { 
-  background-color: rgb(255, 202, 203, 0.4); 
-  border-left: 5px solid rgb(198, 45, 47);
+  background-color: rgb(255, 245, 245); 
+  border-left: 7px solid rgb(198, 45, 47);
 }
 
 .employee-card.break { 
-  background-color: rgb(212, 213, 255, 0.4); 
-  border-left: 5px solid rgb(44, 46, 161);
+  background-color: rgb(245, 246, 255); 
+  border-left: 7px solid rgb(44, 46, 161);
 }
