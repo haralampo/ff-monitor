@@ -4,7 +4,7 @@
 // useMemo → caches expensive computations
 import { useEffect, useState, useMemo } from 'react'
 import './App.css'
-import type {Employee } from './types'
+import type { Employee } from './types'
 
 function formatTime(ms: number) {
   const totalSeconds = Math.floor(ms / 1000);
